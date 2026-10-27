@@ -118,6 +118,9 @@ Start a new Codex session afterwards so the skill is loaded.
 
 </details>
 
+For a fork that carries local patches, use [LOCAL_MAINTENANCE.md](LOCAL_MAINTENANCE.md)
+instead of reinstalling over the clone.
+
 Already have the skill? Run the install command again; the install name did not change. Looking for one of the older skills? See [Moved skills](#moved-skills).
 
 ## How v2 works
