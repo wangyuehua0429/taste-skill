@@ -262,8 +262,8 @@ function deal(input, redraws) {
   s.scenes = dealScenes(dir, input, []);
   return s;
 }
-// The page's big scroll moments (references/scenes.md): two or three tested scenes from different
-// families, each placed on a section of the argument it can carry. Expressive sectors and tones get three.
+// The page's big scroll moments (references/scenes.md): when library/scenes.json ships, deal two or three
+// tested scenes from different families. This version has no catalogue, so it returns [].
 function dealScenes(dir, input, exclude) {
   if (!L.scenes.length) return [];
   const has = (need) => input.have.includes(need) || need === 'photography';

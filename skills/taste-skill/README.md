@@ -74,6 +74,10 @@ a repository under `.claude/skills/`.
   to use one on a page (muted loop, poster, stopped under reduced motion) is in
   `references/imagery.md` §11.
 - Fonts are loaded from Google Fonts and Fontshare. Check each face's licence for your use.
+- `assets/app.css` and `assets/charts.js` declare `taste-skill-fragment` so page-mode lint keeps their
+  interface-fragment borders and shadows. Keep the declaration when copying either file.
+- The scroll-scene catalogue and its demo files are not shipped yet. `assets/scenes/` contains the
+  shared stage for a custom scene; `draw.mjs --list scenes` reports that no library exists.
 - The scores in `references/research.md` are model judgements from screenshots, not Awwwards scores.
 - The draw history lives in `~/.taste-skill/history.json` (set `TASTE_SKILL_HISTORY` to move it).
   Delete it to reset.

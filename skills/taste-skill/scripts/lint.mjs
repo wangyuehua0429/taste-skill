@@ -4,6 +4,10 @@
 //
 //   node lint.mjs [files or directories ...] [--app] [--json]
 //
+// A CSS or script file used only inside a data-ui interface fragment can declare
+// `taste-skill-fragment` near the top. That suppresses only the surface rules
+// hairline / outlined-box / shadow; every other rule still applies.
+//
 // Exit code 1 when any FAIL is found. Zero dependencies.
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, extname, relative, resolve } from 'node:path';
@@ -70,6 +74,7 @@ let emDashes = 0;
 for (const file of files) {
   const rel = relative(process.cwd(), file).split('\\').join('/');
   const lines = readFileSync(file, 'utf8').split(/\r?\n/);
+  const fragment = lines.slice(0, 12).some((line) => /(?:\/\*|\/\/|<!--)\s*taste-skill-fragment\b/.test(line));
   let inCode = false; let selector = ''; let pending = '';
   lines.forEach((line, i) => {
     // track the CSS selector we are inside, so rules scoped to [data-ui] (interface fragments) keep their own lines
@@ -86,7 +91,7 @@ for (const file of files) {
       if (!level) continue;
       if (id === 'mono' && (codeLine || /(^|[\s,>+~(])(pre|code|kbd|samp)\b|code/i.test(selector))) continue; // real code may be monospace
       if ((id === 'hairline' || id === 'outlined-box') && /(^|[\s,>+~(])(table|thead|tbody|tfoot|tr|td|th|input|textarea|select|fieldset)\b/i.test(selector)) continue; // real tables and form fields keep their lines
-      if (inUi && (id === 'hairline' || id === 'outlined-box' || id === 'shadow')) continue;
+      if ((inUi || fragment) && (id === 'hairline' || id === 'outlined-box' || id === 'shadow')) continue;
       if (id === 'hairline' && /sr-only|visually-hidden|clip(-path)?\s*:|outline/i.test(line + selector)) continue; // screen-reader helpers and focus outlines are not rules
       if ((id === 'copy' || id === 'cta-copy' || id === 'emoji') && /^\s*(\/\/|\/\*|\*|import |@import|<!--)/.test(line)) continue;
       const m = line.match(re);
@@ -115,5 +120,5 @@ for (const lvl of ['FAIL', 'WARN']) {
 }
 const fails = findings.filter((f) => f.level === 'FAIL').length;
 console.log(`\nRESULT: ${fails} FAIL, ${findings.length - fails} WARN${fails ? ' — fix the FAILs before rendering.' : ''}`);
-console.log('Interface fragments marked data-ui keep their own borders and shadows. Any other line that must keep a flagged pattern for a real reason can carry the comment taste-skill-ignore.');
+console.log('Interface fragments marked data-ui keep their own borders and shadows. A fragment-only file can declare taste-skill-fragment near its top; any other line that must keep a flagged pattern can carry taste-skill-ignore.');
 process.exit(fails ? 1 : 0);

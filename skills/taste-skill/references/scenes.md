@@ -5,11 +5,10 @@ becomes a scene. A camera flies through a field of pictures, a picture grows fro
 screen, a word buckles under the scroll, a set of photographs orbits and lands in a grid. These are what
 visitors remember from award sites, and what a page built from tidy sections alone never has.
 
-The scene library is taken apart from recent Awwwards Sites of the Day (October 2026: 43 sites recorded
-frame by frame while scrolling, 261 scenes described, 30 types), rebuilt from scratch in our own code,
-tested frame by frame at desktop and phone width and under reduced motion, and reviewed against the
-scenes it came from. Nothing a site owns is in them. Until `library/scenes.json` ships the draw deals
-none; a page that needs a scene builds one on the stage (section 8), with every rule here.
+The scene catalogue is planned from recent Awwwards Sites of the Day (October 2026: 43 sites recorded
+frame by frame while scrolling, 261 scenes described, 30 types). The catalogue and its ready-made scene
+files are not shipped yet, so the draw deals none. A page that needs a scene builds a custom one on the
+shared stage (section 8), with every rule here.
 
 ## Contents
 
@@ -33,15 +32,14 @@ tells the truth, the keyboard and the trackpad work as everywhere else, and the 
 What a scene is not: a fade-up, a small parallax, a sticky footer, a marquee. Those are the quiet layer
 (`references/motion.md`). A scene changes the whole screen.
 
-The direction sheet deals two or three (section 9 of the sheet), from different families, each placed
-on the section of the argument it can carry. Build them in step 6, with that section: a scene is
-composition, not decoration added at the end.
+When the content earns a scene, place it on the section of the argument it can carry and build it in
+step 6 with that section. A scene is composition, not decoration added at the end.
 
 ## 2. Putting a scene on a page
 
-Copy the shared stage and the dealt scene's files into the project (`assets/scenes/stage.css`,
-`stage.js`, `<id>.css`, `<id>.js`). Each scene file's header comment lists the markup it expects and
-its options; `assets/scenes/demo/<id>.html` is a complete working page to read beside it.
+The catalogue is not shipped yet. Copy the shared stage into the project (`assets/scenes/stage.css`,
+`stage.js`) and build a custom scene as section 8 describes. There are no bundled `<id>.css`, `<id>.js`
+or demo pages to copy at this version.
 
 ```html
 <head>
@@ -86,14 +84,15 @@ say how many pictures and words it takes; these hold for all of them:
 - **The scene says something about the subject.** A fly-through of the studio's work, the route a
   shipment really takes, the four rooms of the house, the product's change of state. A scene filled
   with unrelated pictures is a gimmick and reads as one.
-- **Real content only.** If the scene needs eight pictures of the subject and there are three, take the
-  `--redraw scenes`, never pad it with stand-ins.
+- **Real content only.** If the scene needs eight pictures of the subject and there are three, cut or
+  reshape the scene; never pad it with stand-ins.
 
 ## 4. Fitting it to the page
 
-- The scene files read the page's tokens: `--ground`, `--ink`, `--muted`, `--accent`,
+- The scene code reads the page's tokens: `--ground`, `--ink`, `--muted`, `--accent`,
   `--font-display`, `--font-text` (with fallbacks). Set them on `:root` from the sheet and the scene
-  takes the page's colour and type. Check the demo against your page, not the other way round.
+  takes the page's colour and type. Check the rendered scene against the page, not a separate demo
+  with different tokens.
 - Display type in a scene uses the dealt display face and the two-line headline rule; statements stay
   at statement size.
 - Leave a quiet section between two scenes (a text section, a list, a plain picture) so each one lands.
@@ -170,5 +169,5 @@ with `scenes.mjs` like any other.
 
 ## 9. The catalogue
 
-(Generated from `library/scenes.json`; the draw deals from it. `node <skill>/scripts/draw.mjs --list
-scenes` prints it.)
+The catalogue is not shipped yet. `node <skill>/scripts/draw.mjs --list scenes` should report that no
+scene library exists until `library/scenes.json` and its scene files are added.

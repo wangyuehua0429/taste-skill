@@ -140,7 +140,7 @@ The command prints a **direction sheet**. It is the art direction for this build
 
 - **Adopt it.** Do not blend it with the layout you would have made anyway. If it feels unfamiliar,
   good: the familiar layout is the one this skill exists to prevent.
-- Redraw one slot (`--redraw hero | type | palette | photos | scenes | section:<role> | direction`) only for a
+- Redraw one slot (`--redraw hero | type | palette | photos | section:<role> | direction`) only for a
   reason you can state: it contradicts a stated brand constraint, needs an asset that does not exist,
   or is a section that cannot hold the real content (next point). Never redraw to get something more
   comfortable. Record every redraw in your report.
@@ -275,14 +275,12 @@ not finished. Order of work:
    `references/imagery.md` covers searching, licences and credits, video, drawing, crops and treatments.
 5. **The live thing** from step 4, built into the section where it proves the claim (often the hero
    or the booking), with real content, a thumb-sized phone version and a plain fallback.
-6. **The scroll scenes,** when the sheet deals them (section 9), each with the section it carries: the page's big
-   moments, the camera that flies through the work, the picture that opens to the whole screen, the
-   word that buckles under the scroll. Copy the shared stage and the scene's files from
-   `<skill>/assets/scenes/`, fill the scene with this project's own pictures and words, and set the
-   page's tokens so it takes the page's look. A scene is composition: it decides how long the page is
-   and what each screen shows, so it is built now and seen in every look round, not added at the end.
-   `references/scenes.md` says how to put one on a page, fill it, fit it and check it;
-   `assets/scenes/demo/<id>.html` is a working example of each.
+6. **A custom scroll scene, when the brief needs one.** The scene catalogue is not shipped yet, so
+   `draw.mjs` does not deal one and there are no bundled scene files or demos. The shared stage is in
+   `<skill>/assets/scenes/`; build a custom scene on it with the project's own pictures and words and
+   set the page's tokens so it takes the page's look. A scene is composition: it decides how long the
+   page is and what each screen shows, so it is built now and seen in every look round, not added at
+   the end. `references/scenes.md` says how to build, fit and check a custom scene.
 7. **Fullness.** Look at each desktop screen as a poster: one dominant thing and the content it
    carries. A screen that is mostly empty ground is an underbuilt section, not a rest; one deliberate
    rest per page is the limit, and the inspector fails a page with two or more near-empty screens.
@@ -325,6 +323,10 @@ designer in one sentence. Re-run until there are no `FAIL`s. Do not argue with t
 hide things from it. The inspector serves local files over a throwaway local server; if the page must
 also open straight from the file system, open `index.html` that way once before you finish.
 
+`assets/app.css` and `assets/charts.js` declare `taste-skill-fragment` near the top because they style
+content inside a `data-ui` interface fragment. A copied or custom fragment-only stylesheet can keep the
+same declaration; it suppresses only hairline, outlined-box and shadow checks, never page-level rules.
+
 Inspect what the visitor receives. With a build step, run the last gate on the production build
 (`vite build && vite preview`, `next build && next start`, or the built `index.html`), not only on the
 dev server: minifiers and bundlers change what ships (one dropped a `backdrop-filter` that the dev
@@ -346,7 +348,7 @@ Now build the motion layer. It is required, and it is more than one fade: the in
 elements that really move while the page loads and is scrolled, and fails a page under eight (it warns
 under sixteen). Any scroll scenes are already built (step 6); around them the layer has four parts:
 
-1. **The signature move** named on the sheet: one, done well (a dealt scene can be it).
+1. **The signature move** named on the sheet: one, done well (a custom scene can be it).
 2. **An entrance for the parts of every section:** the heading, then the text, then the picture,
    staggered by 60–90ms, rising 16–32px with opacity, triggered once as the section enters. Not one
    fade for the whole block, and never content that stays hidden if the script fails.
@@ -528,7 +530,7 @@ open collections could not be searched.
 | `references/layout.md` | Grid, margins, rhythm, section variety, navigation, footer, the phone composition. |
 | `references/imagery.md` | Choosing, finding, crediting, cropping and treating pictures; what to do with none. |
 | `references/motion.md` | Step 9. Budget, tokens, recipes, reduced motion. |
-| `references/scenes.md` | Step 6, when the sheet deals scroll scenes: putting one on a page, filling, fitting, the phone, checking, the catalogue. |
+| `references/scenes.md` | Step 6, when the brief needs a custom scroll scene: the shared stage, putting a scene on a page, fitting it, the phone and checking. The catalogue is not shipped yet. |
 | `references/critique.md` | Step 8. How to look, how to score, what to fix first. |
 | `references/tells.md` | The dated registry of generated-page tells and what each is replaced by. |
 | `references/research.md` | The study: method, numbers, what the best and worst sites do. Cite it, do not guess. |
@@ -537,6 +539,6 @@ open collections could not be searched.
 | `scripts/lint.mjs` · `scripts/inspect.mjs` | The gate. |
 | `scripts/scenes.mjs` | The gate for scroll scenes: each scene at 0-100% of its hold, desktop, phone, reduced motion. |
 | `assets/base.css` · `assets/base.js` | An optional neutral foundation to build on. |
-| `assets/scenes/` | The scroll scenes: the shared stage (`stage.js`, `stage.css`) and, for each scene in the library, its `.js`, `.css` and a working demo page in `demo/`. |
+| `assets/scenes/` | The shared scroll-stage runtime (`stage.js`, `stage.css`). It contains no catalogue scenes or demos yet. |
 | `assets/app.css` · `assets/charts.js` | For app screens: a neutral shell, panels, tables and controls, and small SVG charts drawn to the app rules. |
-| `library/` | The data the draw reads: directions, heroes, sections, type systems, palettes, photographs, studied sites, motions, scroll scenes (`scenes.json`), and the app styles, shells and screen patterns (`app.json`). Do not read it whole; use the script. |
+| `library/` | The data the draw reads: directions, heroes, sections, type systems, palettes, photographs, studied sites, motions, and the app styles, shells and screen patterns (`app.json`). The scroll-scene catalogue is not shipped yet. Do not read the library whole; use the script. |
